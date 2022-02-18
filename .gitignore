@@ -1,0 +1,18 @@
+# production
+/dist
+
+node_modules/
+/example/gen
+.npm
+.eslintcache
+.stylelintcache
+coverage
+
+# misc
+.DS_Store
+.vscode
+
+# Logs
+logs
+*.log
+npm-debug.log*

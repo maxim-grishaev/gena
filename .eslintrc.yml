@@ -1,0 +1,35 @@
+env:
+  node: true
+  # browser: true
+parser: '@typescript-eslint/parser'
+extends:
+  - eslint:recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:import/errors
+  - plugin:import/warnings
+  - plugin:import/typescript
+  - plugin:prettier/recommended
+plugins:
+  - '@typescript-eslint'
+  - import
+  - prettier
+  - jest
+settings:
+  'import/extensions': ['*.ts']
+  'import/parsers':
+    '@typescript-eslint/parser': ['*.ts']
+  'import/resolver': 'eslint-import-resolver-typescript'
+  'import/internal-regex': '^@cgi/'
+rules:
+  'prettier/prettier': 'error'
+  'import/no-default-export': 'error'
+  '@typescript-eslint/explicit-module-boundary-types': 'off'
+  '@typescript-eslint/no-non-null-assertion': 'off'
+  '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }]
+  '@typescript-eslint/no-namespace': 'off'
+overrides:
+  - files: '*.test.ts'
+    plugins:
+      - jest
+    extends:
+      - plugin:jest/recommended
