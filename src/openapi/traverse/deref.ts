@@ -5,6 +5,8 @@ export const deref = (doc: openapi.Document, ref: openapi.Reference) =>
     .replace('#/', '')
     .split('/')
     .reduce(
-      (obj, key) => (obj ? (obj as Record<string, unknown>)[key] : null),
-      doc as unknown,
+      (obj, key) =>
+        // @ts-expect-error ???
+        obj ? (obj as Record<string, unknown>)[key] : null,
+      doc,
     )

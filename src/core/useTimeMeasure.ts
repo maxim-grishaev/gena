@@ -10,10 +10,13 @@ export const useNamedTimesMeasures = <T extends Record<string, boolean>>(
   type Key = keyof T
   const keys: Key[] = Object.keys(props)
   const getTimeFromStart = useTimeMeasure()
-  const timerMap = keys.reduce((memo, k) => {
-    memo[k] = props[k] ? getTimeFromStart : count0
-    return memo
-  }, {} as Record<Key, () => number>)
+  const timerMap = keys.reduce(
+    (memo, k) => {
+      memo[k] = props[k] ? getTimeFromStart : count0
+      return memo
+    },
+    {} as Record<Key, () => number>,
+  )
 
   const stopTimeMap: { [K in Key]?: number } = {}
 
@@ -27,10 +30,13 @@ export const useNamedTimesMeasures = <T extends Record<string, boolean>>(
       return stopTimeMap[key]!
     },
     read: (): Record<Key, number> =>
-      keys.reduce((memo, k) => {
-        const stopTime: number | undefined = stopTimeMap[k]
-        memo[k] = stopTime != null ? stopTime : timerMap[k]()
-        return memo
-      }, {} as Record<Key, number>),
+      keys.reduce(
+        (memo, k) => {
+          const stopTime: number | undefined = stopTimeMap[k]
+          memo[k] = stopTime != null ? stopTime : timerMap[k]()
+          return memo
+        },
+        {} as Record<Key, number>,
+      ),
   }
 }

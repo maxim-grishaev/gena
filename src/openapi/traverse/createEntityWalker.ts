@@ -1,5 +1,5 @@
-import type { nsGenEntity } from '../types/nsGenEntity'
-import type { nsGenImpl } from '../types/nsGenImpl'
+import type * as nsGenEntity from '../types/Entity'
+import type * as nsGenImpl from '../types/Impl'
 import type { openapi } from '../types/opanapi'
 import { OpenAPIV3 } from 'openapi-types'
 import { getRefPath } from './selectEntity'

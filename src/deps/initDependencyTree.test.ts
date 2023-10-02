@@ -21,7 +21,7 @@ describe('initDependencyTree', () => {
     await initDependencyTree(mock, {
       a: [],
     })
-    expect(mockLater).toBeCalledTimes(1)
+    expect(mockLater).toHaveBeenCalledTimes(1)
   })
 
   test('single module', async () => {
@@ -81,7 +81,7 @@ describe('initDependencyTree', () => {
         b: ['c'],
         c: ['b'],
       }),
-    ).rejects.toThrowError()
+    ).rejects.toThrow()
   })
 })
 
@@ -102,32 +102,32 @@ describe('initValidDependencyTree', () => {
         c: ['x', 'b'],
         x: [],
       }),
-    ).rejects.toThrowError()
+    ).rejects.toThrow()
   })
 })
 
 describe('What if we fail to init?', () => {
   it('should report error if throws', async () => {
     await expect(() =>
-      initValidDependencyTree(
-        (moduleName) => {
-          throw new Error(`"${moduleName}" threw`)
-        },
-        {
-          throw_case: [],
-        },
-      ),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"\\"throw_case\\" threw"`)
+initValidDependencyTree(
+(moduleName) => {
+  throw new Error(`"${moduleName}" threw`);
+},
+{
+  throw_case: [] })).
+
+
+rejects.toThrowErrorMatchingInlineSnapshot(`""throw_case" threw"`)
   })
   it('should report error if rejects', async () => {
     await expect(() =>
-      initValidDependencyTree(
-        (moduleName) => Promise.reject(new Error(`"${moduleName}" threw`)),
-        {
-          reject_case: [],
-        },
-      ),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"\\"reject_case\\" threw"`)
+initValidDependencyTree(
+(moduleName) => Promise.reject(new Error(`"${moduleName}" threw`)),
+{
+  reject_case: [] })).
+
+
+rejects.toThrowErrorMatchingInlineSnapshot(`""reject_case" threw"`)
   })
 
   it('should report correct error', async () => {

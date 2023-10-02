@@ -1,4 +1,4 @@
-import type { nsGenEntity } from '@cgi/openapi/types/nsGenEntity'
+import type * as nsGenEntity from '@gena/openapi/types/Entity'
 import { toConstName, toPascalCase } from './lib/strings'
 import { ObjectPropSpec, printComment, printObject } from './lib/printTS'
 

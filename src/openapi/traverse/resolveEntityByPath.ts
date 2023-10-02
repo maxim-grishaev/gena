@@ -1,5 +1,5 @@
 import type { openapi } from '../types/opanapi'
-import type { nsGenEntity } from '../types/nsGenEntity'
+import type * as nsGenEntity from '../types/Entity'
 import { EntityGuard } from './EntityGuard'
 import { createSpecAndValidate } from './spec'
 import { pickEntity } from './selectEntity'

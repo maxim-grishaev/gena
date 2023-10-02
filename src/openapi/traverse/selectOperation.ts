@@ -1,4 +1,4 @@
-import type { nsGenOps } from '../types/nsGenOps'
+import type * as nsGenOps from '../types/Ops'
 import type { openapi } from '../types/opanapi'
 import { isDefined } from '../util'
 
@@ -26,13 +26,15 @@ const createRespSpec = (
 // Path
 //
 export const selectPaths = (doc: openapi.Document) =>
-  Object.entries(doc.paths).reduce(
-    (arr, [pathTemplate, pathItem]) =>
-      isDefined(pathItem)
-        ? arr.concat(createPathSpec(pathTemplate, pathItem))
-        : arr,
-    [] as nsGenOps.SpecOfPath[],
-  )
+  !doc.paths
+    ? []
+    : Object.entries(doc.paths).reduce(
+        (arr, [pathTemplate, pathItem]) =>
+          isDefined(pathItem)
+            ? arr.concat(createPathSpec(pathTemplate, pathItem))
+            : arr,
+        [] as nsGenOps.SpecOfPath[],
+      )
 
 const createPathSpec = (
   pathTemplate: string,
@@ -49,13 +51,15 @@ const createPathSpec = (
 // Operation
 //
 export const selectOperations = (doc: openapi.Document) =>
-  Object.entries(doc.paths).reduce(
-    (arr, [pathTemplate, pathItem]) =>
-      isDefined(pathItem)
-        ? arr.concat(processPath(pathTemplate, pathItem))
-        : arr,
-    [] as nsGenOps.SpecOfOperation[],
-  )
+  !doc.paths
+    ? []
+    : Object.entries(doc.paths).reduce(
+        (arr, [pathTemplate, pathItem]) =>
+          isDefined(pathItem)
+            ? arr.concat(processPath(pathTemplate, pathItem))
+            : arr,
+        [] as nsGenOps.SpecOfOperation[],
+      )
 
 export const createOperationSpec = (opData: {
   method: openapi.OperationType

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx",
     "target": "ES2019",
     "module": "commonjs",
     "strict": true,
@@ -11,16 +12,8 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@cgi/core/*": ["./src/cgi/*"],
-      "@cgi/openapi/*": ["./src/openapi/*"]
+      "@gena/*": ["./src/*"]
     }
   },
-  "include": [
-    "./src/**/*.ts"
-    // "!./src/**/*.test.ts",
-    // "!./src/**/*.mock.ts"
-  ],
-  "ts-node": {
-    "files": true
-  }
+  "include": ["./src/**/*.ts"]
 }

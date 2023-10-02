@@ -1,4 +1,4 @@
-import jestDiff from 'jest-diff'
+import { diff as jestDiff } from 'jest-diff'
 import stripAnsi from 'strip-ansi'
 
 export interface UseDiffParams {

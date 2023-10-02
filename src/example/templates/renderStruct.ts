@@ -1,6 +1,6 @@
-import type { nsGenEntity } from '@cgi/openapi/types/nsGenEntity'
-import type { openapi } from '@cgi/openapi/types/opanapi'
-import { getRefPath } from '@cgi/openapi/traverse/selectEntity'
+import type * as nsGenEntity from '@gena/openapi/types/Entity'
+import type { openapi } from '@gena/openapi/types/opanapi'
+import { getRefPath } from '@gena/openapi/traverse/selectEntity'
 import { toPascalCase } from './lib/strings'
 import { printType, printJSDOC } from './lib/printType'
 

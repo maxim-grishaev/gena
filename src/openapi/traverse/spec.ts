@@ -1,4 +1,4 @@
-import type { nsGenEntity } from '../types/nsGenEntity'
+import type * as nsGenEntity from '../types/Entity'
 import type { openapi } from '../types/opanapi'
 import { EntityGuard } from './EntityGuard'
 

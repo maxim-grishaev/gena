@@ -1,8 +1,8 @@
-import type { openapi } from '@cgi/openapi/types/opanapi'
-import type { nsGenEntity } from '@cgi/openapi/types/nsGenEntity'
-import { isDefined } from '@cgi/openapi/util'
-import { createEntityWalker } from '@cgi/openapi/traverse/createEntityWalker'
-import { EntityGuard } from '@cgi/openapi/traverse/EntityGuard'
+import type { openapi } from '@gena/openapi/types/opanapi'
+import type * as nsGenEntity from '@gena/openapi/types/Entity'
+import { isDefined } from '@gena/openapi/util'
+import { createEntityWalker } from '@gena/openapi/traverse/createEntityWalker'
+import { EntityGuard } from '@gena/openapi/traverse/EntityGuard'
 import { toPascalCase } from './strings'
 import { ObjectPropSpec, printObject, printComment } from './printTS'
 

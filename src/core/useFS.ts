@@ -1,19 +1,11 @@
-import path from 'path'
 import fsx from 'fs-extra'
 import Vinyl from 'vinyl'
 
 import { useLogger } from './useLogger'
 import { sleep } from './lib'
+import { relativeToCwd, useFSPath } from './useFSPath'
 
 type FilesMap = Map<string, Vinyl>
-
-export const useFSPath =
-  ({ cwd = process.cwd(), subDir = '' }: { cwd?: string; subDir?: string }) =>
-  (relPath = '') =>
-    path.resolve(cwd, subDir, relPath)
-
-export const relativeToCwd = (filePath: string) =>
-  path.relative(process.cwd(), filePath)
 
 export const useReadFile = ({
   baseDir,
@@ -28,13 +20,10 @@ export const useReadFile = ({
     fileExists: (relPath: string) =>
       fsx.pathExists(getAbsPathInBaseDir(relPath)),
 
-    readFile: async (
-      relPath: string,
-      options: { encoding?: string; flag?: string },
-    ) => {
+    readFile: async (relPath: string) => {
       const absPath = getAbsPathInBaseDir(relPath)
       logger.verbose(`${relPath} => ${relativeToCwd(absPath)}`)
-      const result = await fsx.readFile(absPath, options)
+      const result = await fsx.readFile(absPath)
       return afterRead ? await afterRead(result) : result
     },
   }
@@ -79,7 +68,11 @@ export const useWriteFile = ({
   }
 
   const writeOneFile = async (file: Vinyl) => {
-    await fsx.outputFile(file.path, file.contents, file.meta)
+    const str = file.contents?.toString()
+    if (!str) {
+      throw new Error(`File ${relativeToCwd(file.path)} is empty`)
+    }
+    await fsx.outputFile(file.path, str, file.meta)
     logger.verbose(relativeToCwd(file.path))
     if (afterWrite) {
       await afterWrite(file)

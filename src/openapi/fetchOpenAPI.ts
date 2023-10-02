@@ -1,9 +1,11 @@
 import type { openapi } from './types/opanapi'
 import SwaggerParser from '@apidevtools/swagger-parser'
+import { OpenAPI } from 'openapi-types'
 import swagger2openapi from 'swagger2openapi'
 
-const isV2 = (doc: Partial<openapi.V2Document>): doc is openapi.V2Document =>
-  Boolean(doc.swagger)
+const isSwagger2Document = (
+  doc: OpenAPI.Document & { swagger?: unknown },
+): doc is openapi.V2Document => Boolean(doc.swagger) && doc.swagger === '2.0'
 
 export const fetchOpenAPI = async (
   definitionURLorPath: string,
@@ -13,14 +15,19 @@ export const fetchOpenAPI = async (
     dereference: {
       circular: 'ignore',
     },
-    resolve: options,
+    resolve: {
+      file: {
+        canRead: true,
+      },
+      ...options,
+    },
     validate: {
       schema: true,
       spec: false,
     },
   })
 
-  return isV2(apiDefinitionV2OrV3)
+  return isSwagger2Document(apiDefinitionV2OrV3)
     ? await swagger2openapi.convert(apiDefinitionV2OrV3)
-    : apiDefinitionV2OrV3
+    : (apiDefinitionV2OrV3 as openapi.Document)
 }

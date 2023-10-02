@@ -7,8 +7,9 @@ export namespace openapi {
 
   export type Base = OpenAPIV3.BaseSchemaObject
   export type Reference = OpenAPIV3.ReferenceObject
+  type Items = OpenAPIV3.ArraySchemaObject['items']
   export type Array = Omit<OpenAPIV3.ArraySchemaObject, 'items'> & {
-    items?: OpenAPIV3.ArraySchemaObject['items']
+    items?: Items
   }
   export type NonArray = OpenAPIV3.NonArraySchemaObject
   export type AnyEntity = Array | NonArray | Reference

@@ -19,7 +19,7 @@ settings:
   'import/parsers':
     '@typescript-eslint/parser': ['*.ts']
   'import/resolver': 'eslint-import-resolver-typescript'
-  'import/internal-regex': '^@cgi/'
+  'import/internal-regex': '^@gena/'
 rules:
   'prettier/prettier': 'error'
   'import/no-default-export': 'error'

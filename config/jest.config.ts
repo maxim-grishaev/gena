@@ -11,6 +11,7 @@ const config: InitialOptionsTsJest = {
   collectCoverageFrom: ['src/**/*.ts', '!**/*.mock.ts', '!**/*.test.ts'],
   coverageDirectory: './coverage',
   setupFiles: ['<rootDir>/config/jest.setup.ts'],
+  prettierPath: null,
 }
 
 // eslint-disable-next-line import/no-default-export

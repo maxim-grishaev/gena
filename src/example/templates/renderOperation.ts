@@ -1,9 +1,9 @@
-import type { nsGenOps } from '@cgi/openapi/types/nsGenOps'
-import type { openapi } from '@cgi/openapi/types/opanapi'
+import type * as nsGenOps from '@gena/openapi/types/Ops'
+import type { openapi } from '@gena/openapi/types/opanapi'
 import { OpenAPIV3 } from 'openapi-types'
-import { EntityGuard } from '@cgi/openapi/traverse/EntityGuard'
-import { deref } from '@cgi/openapi/traverse/deref'
-import { isDefined } from '@cgi/openapi/util'
+import { EntityGuard } from '@gena/openapi/traverse/EntityGuard'
+import { deref } from '@gena/openapi/traverse/deref'
+import { isDefined } from '@gena/openapi/util'
 import { printObject } from './lib/printTS'
 import { printType } from './lib/printType'
 import { toCamelCase } from './lib/strings'
@@ -30,9 +30,12 @@ type Param = OpenAPIV3.ParameterObject
 const filterParamsIn = (inVal: string, params: Param[]) =>
   params.filter((p) => p.in === inVal)
 
-const isParam = (entity: any): entity is Param =>
-  Boolean(entity) &&
+const isParam = (entity: unknown): entity is Param =>
+  entity != null &&
+  typeof entity === 'object' &&
+  'name' in entity &&
   typeof entity.name === 'string' &&
+  'in' in entity &&
   typeof entity.in === 'string'
 
 export const renderOneOperation = (

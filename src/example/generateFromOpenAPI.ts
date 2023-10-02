@@ -1,24 +1,20 @@
-import type { nsGenImpl } from '@cgi/openapi/types/nsGenImpl'
+import type * as nsGenImpl from '@gena/openapi/types/Impl'
 import path from 'path'
 // import fs from 'fs'
 import type Vinyl from 'vinyl'
-import { runner } from '@cgi/core/runner'
-import { useLogger } from '@cgi/core/useLogger'
-import { prettifyWithEslint, prettifyJSON } from '@cgi/core/prettify'
-import { useDiffWithSavedJSON } from '@cgi/core/useDiffWithSavedJSON'
-import {
-  useFSPath,
-  useWriteFile,
-  useReadFile,
-  relativeToCwd,
-} from '@cgi/core/useFS'
-import { fetchOpenAPI } from '@cgi/openapi/fetchOpenAPI'
-import { selectEnums, selectStructs } from '@cgi/openapi/traverse/selectEntity'
+import { runner } from '@gena/core/runner'
+import { useLogger } from '@gena/core/useLogger'
+import { prettifyWithEslint, prettifyJSON } from '@gena/core/prettify'
+import { useDiffWithSavedJSON } from '@gena/core/useDiffWithSavedJSON'
+import { useWriteFile, useReadFile } from '@gena/core/useFS'
+import { relativeToCwd, useFSPath } from '@gena/core/useFSPath'
+import { fetchOpenAPI } from '@gena/openapi/fetchOpenAPI'
+import { selectEnums, selectStructs } from '@gena/openapi/traverse/selectEntity'
 import {
   selectResponses,
   selectOperations,
   selectPaths,
-} from '@cgi/openapi/traverse/selectOperation'
+} from '@gena/openapi/traverse/selectOperation'
 import { renderOneStruct, getStructName } from './templates/renderStruct'
 import {
   renderOneOperation,
@@ -99,7 +95,7 @@ export const generateFromOpenAPI = async ({
             )
             break
           case '.json':
-            updateFileBody(await prettifyJSON(file), file)
+            updateFileBody(prettifyJSON(file), file)
             break
         }
       },

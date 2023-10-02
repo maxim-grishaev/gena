@@ -49,46 +49,38 @@ describe('can resolve complex graph', () => {
 describe('missing dependencies', () => {
   it('throws if missing the one', () => {
     expect(() =>
-      resolveDependencies({
-        a: ['b'],
-      }),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Module \\"a\\" depends on missing module: \\"b\\""`,
-    )
+resolveDependencies({
+  a: ['b'] })).
+
+toThrowErrorMatchingInlineSnapshot(`"Module "a" depends on missing module: "b""`)
   })
   it('throws if missing within existing', () => {
     expect(() =>
-      resolveDependencies({
-        a: ['b', 'c'],
-        b: [],
-      }),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Module \\"a\\" depends on missing module: \\"c\\""`,
-    )
+resolveDependencies({
+  a: ['b', 'c'],
+  b: [] })).
+
+toThrowErrorMatchingInlineSnapshot(`"Module "a" depends on missing module: "c""`)
   })
 })
 
 describe('throws if circular dependency found', () => {
   it('throws if simple circular dependency a <-> b', () => {
     expect(() =>
-      resolveDependencies({
-        a: ['b'],
-        b: ['a'],
-      }),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Circular dependency found: \\"a\\" -> \\"b\\""`,
-    )
+resolveDependencies({
+  a: ['b'],
+  b: ['a'] })).
+
+toThrowErrorMatchingInlineSnapshot(`"Circular dependency found: "a" -> "b""`)
   })
   it('throws if long circular dependency a -> b -> c -> d -> a', () => {
     expect(() =>
-      resolveDependencies({
-        a1: ['c2'],
-        b3: ['d0'],
-        c2: ['b3'],
-        d0: ['a1'],
-      }),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Circular dependency found: \\"a1\\" -> \\"c2\\" -> \\"b3\\" -> \\"d0\\""`,
-    )
+resolveDependencies({
+  a1: ['c2'],
+  b3: ['d0'],
+  c2: ['b3'],
+  d0: ['a1'] })).
+
+toThrowErrorMatchingInlineSnapshot(`"Circular dependency found: "a1" -> "c2" -> "b3" -> "d0""`)
   })
 })
